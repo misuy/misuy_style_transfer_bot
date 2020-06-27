@@ -2,3 +2,5 @@
 users_dict.txt
 /__pycache__
 /models/__pycache__
+/models/vgg16
+test.py
