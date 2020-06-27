@@ -1,3 +1,4 @@
-images
-user_dict.txt
-__pycache__
+/images
+users_dict.txt
+/__pycache__
+/models/__pycache__
