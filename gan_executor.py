@@ -18,14 +18,9 @@ def transform_image(image):
     transform = torchvision.transforms.ToPILImage()
     return(transform(image.cpu().clone().squeeze(0)))
 
-try:
-    gan = CycleGan(IMG_SIZE, device, mode='load', path='models/kubizm_cycle_gan')
 
-    input_image = load_image('images/id_{0}/gan/image.jpg'.format(user_id))
-    output_image = transform_image(gan.make_image(input_image))
-    output_image.save('images/id_{0}/gan/output_image.jpg'.format(user_id))
-    with open('images/id_{0}/gan/state.txt'.format(user_id), 'w') as f:
-        f.write('success')
-except:
-    with open('images/id_{0}/gan/state.txt'.format(user_id), 'w') as f:
-        f.write('error')
+gan = CycleGan(IMG_SIZE, device, mode='load', path='models/kubizm_cycle_gan')
+
+input_image = load_image('images/id_{0}/gan/image.jpg'.format(user_id))
+output_image = transform_image(gan.make_image(input_image))
+output_image.save('images/id_{0}/gan/output_image.jpg'.format(user_id))

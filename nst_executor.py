@@ -28,5 +28,3 @@ model = NSTModel(cnn=cnn, image=image, style_image=style_image, content_image=co
 del cnn
 output = transform_image(model.make_image(10))
 output.save('images/id_{0}/nst/output_image.jpg'.format(user_id))
-with open('images/id_{0}/nst/state.txt'.format(user_id), 'w') as f:
-    f.write('success')

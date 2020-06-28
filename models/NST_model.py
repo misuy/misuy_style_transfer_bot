@@ -131,8 +131,6 @@ class NSTModel():
                 return(style_loss_sum + content_loss_sum)
             
             self.optimizer.step(closure)
-            if step % 10 == 0:
-                print('{0}/{1}'.format(step, num_steps))
 
         self.image.data.clamp_(0, 1)
         return(self.image)

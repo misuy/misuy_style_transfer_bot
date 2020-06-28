@@ -11,6 +11,7 @@ import PIL
 import copy
 import aiogram
 from config import TOKEN
+import time
 import logging
 import json
 import os
@@ -26,41 +27,19 @@ GAN_IMG_SIZE = 256
 
 
 def run_gan_executor(user_id, img_size, device):
-    subprocess.Popen(['python3.7', 'gan_executor.py', str(user_id), str(img_size), str(device)])
-    ret = None
-    while True:
-        with open('images/id_{0}/gan/state.txt'.format(user_id), 'r') as f:
-            data = f.read()
-            if data != 'none':
-                if data == 'success':
-                    ret = True
-                    break
-                elif data == 'error':
-                    ret = False
-                    break
+    p = subprocess.Popen(['python3.7', 'gan_executor.py', str(user_id), str(img_size), str(device)])
+    while p.poll() is None:
+        time.sleep(0.5)
 
-    with open('images/id_{0}/gan/state.txt'.format(user_id), 'w') as f:
-        f.write('none')
-    return(ret)
+    return(p.returncode)
 
 
 def run_nst_executor(user_id, img_size, device):
-    subprocess.Popen(['python3.7', 'nst_executor.py', str(user_id), str(img_size), str(device)])
-    ret = None
-    while True:
-        with open('images/id_{0}/nst/state.txt'.format(user_id), 'r') as f:
-            data = f.read()
-            if data != 'none':
-                if data == 'success':
-                    ret = True
-                    break
-                elif data == 'error':
-                    ret = False
-                    break
-                
-    with open('images/id_{0}/nst/state.txt'.format(user_id), 'w') as f:
-        f.write('none')
-    return(ret)
+    p = subprocess.Popen(['python3.7', 'nst_executor.py', str(user_id), str(img_size), str(device)])
+    while p.poll() is None:
+        time.sleep(0.5)
+    
+    return(p.returncode)
 
 
 
@@ -102,7 +81,7 @@ async def help_def(message: aiogram.types.Message):
 @dp.callback_query_handler(lambda c: c.data == 'help_c')
 async def help_def_c(callback_query: aiogram.types.CallbackQuery):
     await bot.answer_callback_query(callback_query.id)
-    await bot.send_message(callback_query.from_user.id, 'ksfgjdsmfj')
+    await bot.send_message(callback_query.from_user.id, 'NST переносит стиль со 2-ой отправленной картинки на 1-ую;\nGAN накладывает определенный стиль на отправленную картинку (в нашем случае это кубизм).', reply_markup=inline_start_kb)
 
 
 @dp.message_handler(commands=['nst'])
@@ -111,7 +90,7 @@ async def nst_run_def(message: aiogram.types.Message):
     users_dict[user_id]['nst'] = {'content_image_path': None, 'style_image_path': None, 'request_id': users_dict[user_id]['requests_count']}
     users_dict[user_id]['gan'] = None
     users_dict[user_id]['requests_count'] += 1
-    await message.answer('Отлично! Теперь отправьте 2 картинки в разных сообщениях. С 1-ой возьмется контент, а со 2-ой стиль.')
+    await message.answer('Отлично! Теперь отправьте 2 картинки в разных сообщениях. Со 2-ой перенесется стиль на 1-ую.')
 
 
 @dp.callback_query_handler(lambda c: c.data == 'nst_c')
@@ -121,7 +100,7 @@ async def nst_run_def_c(callback_query: aiogram.types.CallbackQuery):
     users_dict[user_id]['nst'] = {'content_image_path': None, 'style_image_path': None, 'request_id': users_dict[user_id]['requests_count']}
     users_dict[user_id]['gan'] = None
     users_dict[user_id]['requests_count'] += 1
-    await bot.send_message(user_id, 'Отлично! Теперь отправьте 2 картинки в разных сообщениях. С 1-ой возьмется контент, а со 2-ой стиль.')
+    await bot.send_message(user_id, 'Отлично! Теперь отправьте 2 картинки в разных сообщениях. Со 2-ой перенесется стиль на 1-ую.')
 
 
 @dp.message_handler(commands=['gan'])
