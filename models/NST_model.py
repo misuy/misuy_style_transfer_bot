@@ -51,7 +51,7 @@ class Normalization(torch.nn.Module):
 
 
 class NSTModel():
-    def __init__(self, cnn, image, style_image, content_image, device, style_loss_layers=[1, 2, 3, 4], content_loss_layers=[3]):
+    def __init__(self, cnn, image, style_image, content_image, device, style_loss_layers=[1, 2, 3], content_loss_layers=[2]):
 
         self.image = image
         self.style_image = style_image

@@ -18,17 +18,15 @@ def transform_image(image):
     transform = torchvision.transforms.ToPILImage()
     return(transform(image.cpu().clone().squeeze(0)))
 
-try:
-    content_image = load_image('images/id_{0}/nst/content_image.jpg'.format(user_id))
-    style_image = load_image('images/id_{0}/nst/style_image.jpg'.format(user_id))
-    image = content_image.clone()
 
-    cnn = torch.load('models/vgg16/vgg16')
-    model = NSTModel(cnn=cnn, image=image, style_image=style_image, content_image=content_image, device=device)
-    output = transform_image(model.make_image(10))
-    output.save('images/id_{0}/nst/output_image.jpg'.format(user_id))
-    with open('images/id_{0}/nst/state.txt'.format(user_id), 'w') as f:
-        f.write('success')
-except:
-    with open('images/id_{0}/nst/state.txt'.format(user_id), 'w') as f:
-        f.write('error')
+content_image = load_image('images/id_{0}/nst/content_image.jpg'.format(user_id))
+style_image = load_image('images/id_{0}/nst/style_image.jpg'.format(user_id))
+image = content_image.clone()
+
+cnn = torch.load('models/vgg16/vgg16')
+model = NSTModel(cnn=cnn, image=image, style_image=style_image, content_image=content_image, device=device)
+del cnn
+output = transform_image(model.make_image(10))
+output.save('images/id_{0}/nst/output_image.jpg'.format(user_id))
+with open('images/id_{0}/nst/state.txt'.format(user_id), 'w') as f:
+    f.write('success')
