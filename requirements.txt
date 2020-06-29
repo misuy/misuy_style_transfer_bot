@@ -2,4 +2,4 @@ aiogram
 numpy
 scikit-image
 pillow
-matplotlib.pyplot
+matplotlib
