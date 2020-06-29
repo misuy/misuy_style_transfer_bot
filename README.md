@@ -23,7 +23,7 @@
 # Для тех, кто хочет клонировать репозиторий
 1)Github не клонирует пустые папки, поэтому вам необходимо создать папку images в главной директории проекта [/images] (там где файл main.py), и директорию vgg16 в models [/models/vgg16];
 
-2)Изменить токен бота на свой в файле config.py;
+2)Создать файл сonfig.py в главной директории проекта [/config.py], с содержанием: TOKEN='{Ваш токен от бота в телеграме}';
 
 3)Установить библиотеки из requirements.txt командой [python3.7 -m pip install -r requirements.txt], и torch+torchvision командой [python3.7 -m pip install torch==1.5.1+cpu torchvision==0.6.1+cpu -f https://download.pytorch.org/whl/torch_stable.html] (torch только для сpu);
 
