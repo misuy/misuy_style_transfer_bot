@@ -5,7 +5,7 @@
 
 Для написания функционала бота я использовал библиотеку aiogram, но он получился не асинхронным, т.к. не смог разобраться в асинхронности.
 
-Для написания моделей использовался фреймворк pytorch. Основу для реальзации NST я взял с официального сайта: https://pytorch.org/tutorials/advanced/neural_style_tutorial.html. Реализацию CycleGan взял из своего прошлого домашнего задания в dlschool: https://github.com/misuy/misuy_cycle_gan, для его создания я вдохновлялся статьей: https://arxiv.org/abs/1703.10593, и реализацией: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix. Для этого проекта обучил ган на датасете: https://www.kaggle.com/hsankesara/flickr-image-dataset (это типо реальные фотографии), и спарсил 1500 картин в стиле кубизм из яндекс картинок.
+Для написания моделей использовался фреймворк pytorch. Основу для реальзации NST я взял с официального сайта: https://pytorch.org/tutorials/advanced/neural_style_tutorial.html. Реализацию CycleGan взял из своего прошлого домашнего задания в dlschool: https://github.com/misuy/misuy_cycle_gan, для его создания я вдохновлялся статьей: https://arxiv.org/abs/1703.10593, и реализацией: https://github.com/junyanz/pytorch-CycleGAN-and-pix2pix. Для этого проекта обучил ган на датасете состоящем из реальных фотографий: https://www.kaggle.com/hsankesara/flickr-image-dataset, и 1500 картин в стиле кубизм из яндекс картинок, которые я спарсил.
 
 # Для тех, кто хочет пользоваться ботом
 1)Найдите бота в телеграме @misuy_style_transfer_bot;
